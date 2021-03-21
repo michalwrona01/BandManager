@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap 4 Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">BandManager</a>
+  
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="font-size: 18px;">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/" id="home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login" id="login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sing-up" id="sing_up">Sing Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/create-new-band" id="create_new_band">Create New Band</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/manage-band" id="manage_your_band">Manage Your Band</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout" id="logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<div class="container"> 
+{% block content %}
+{% endblock %}
+</div>
+
+</body>
+</html>
