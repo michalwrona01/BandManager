@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Create New Band{% endblock %}
+{% block content %}
+<br/>
+<h1>Create New Band</h1>
+    <form method="POST"> 
+    <div class="form-group">
+        <label for="name">Band Name</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="name"
+            name="name"
+            placeholder="Enter band name"
+        >
+    </div>
+    <div class="form-group">
+        <label for="city">City</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="city"
+            name="city"
+            placeholder="Enter city"
+        >
+    </div>
+    <div class="form-group">
+        <label for="music_type">Choose Music Type</label>
+        <select class="custom-select" name="music_type">
+            <option selected>Open this select menu</option>
+            <option value="disco_polo">Disco-Polo</option>
+            <option value="rock">Rock</option>
+            <option value="jazz">Jazz</option>
+            <option value="blues">Blues</option>
+            <option value="funk">Funk</option>
+            <option value="pop">Pop</option>
+        </select>
+    </div>
+    <div class="form-group custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch1" name="isSwitch">
+        <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Sumbit</button>
+    </form>
+{% endblock %}
