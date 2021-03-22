@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash
-from . import connection_with_data_base
+from .models import connection_with_data_base
 import mysql.connector
 
 auth = Blueprint("auth", __name__)
