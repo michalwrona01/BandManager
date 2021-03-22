@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash
+from mysql.connector import cursor
 from .models import connection_with_data_base
 import mysql.connector
 
@@ -47,5 +48,27 @@ def sing_up():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        pass
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        connection = connection_with_data_base()
+        cursor = connection.cursor(dictionary=True)
+        inserQuery = "SELECT email, password FROM users"
+        cursor.execute(inserQuery)
+
+        is_exists = True
+        for row in cursor:
+            if row["email"] == email:
+                is_exists = False
+                if row["password"] == password: 
+                    flash("You just have been logged.", category="success")
+                    break
+                else:
+                    flash("Inccorect password, try again.", category="error")    
+        
+        if is_exists: 
+            flash("Account don't exist.", category="error") 
+
+
+
     return render_template("login.html")
