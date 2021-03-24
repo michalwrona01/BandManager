@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash
-from .models import connection_with_data_base
+from .models import connection_with_data_base, User, User_Login
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -27,16 +27,16 @@ def sing_up():
             flash("Passwords don't match.", category="error")
         else:
             try:
-                hashed_password = generate_password_hash(
-                    password1, method='sha256')
+                hashed_password = generate_password_hash(password1, method='sha256')
+                new_user = User(first_name, surname, email, hashed_password)
                 connection = connection_with_data_base()
                 cursor = connection.cursor()
                 insertQuery = "INSERT INTO bandmanage.users(first_name, surname, email, password) VALUES(%(first_name)s, %(surname)s, %(email)s, %(password)s)"
                 insertData = {
-                    "first_name": first_name,
-                    "surname": surname,
-                    "email": email,
-                    "password": hashed_password
+                    "first_name": new_user.first_name,
+                    "surname": new_user.surname,
+                    "email": new_user.email,
+                    "password": new_user.password
                 }
                 cursor.execute(insertQuery, insertData)
                 connection.commit()
@@ -49,6 +49,7 @@ def sing_up():
     return render_template("sing_up.html")
 
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -57,15 +58,16 @@ def login():
 
         connection = connection_with_data_base()
         cursor = connection.cursor(dictionary=True)
-        inserQuery = "SELECT email, password FROM users"
+        inserQuery = "SELECT id, email, password FROM users"
         cursor.execute(inserQuery)
 
         is_exists = True
-        for row in cursor:
-            if row["email"] == email:
+        for user in cursor:
+            if user["email"] == email:
                 is_exists = False
-                if check_password_hash(row['password'], password):
+                if check_password_hash(user['password'], password):
                     flash("You just have been logged.", category="success")
+                    user = User_Login(user["id"], user["email"], True)
                     break
                 else:
                     flash("Inccorect password, try again.", category="error")
@@ -74,3 +76,10 @@ def login():
             flash("Account don't exist.", category="error")
 
     return render_template("login.html")
+
+
+
+
+    
+
+

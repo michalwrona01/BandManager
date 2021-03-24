@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, flash
 from flask.globals import request
-from .models import connection_with_data_base
+from .models import connection_with_data_base, Band
 import mysql.connector
+
 
 views = Blueprint('views', __name__)
 
@@ -21,14 +22,16 @@ def create_new_band():
         elif len(city) < 2:
             flash("City must be at least 3 characters.", category="error")
         else:
+            new_band = Band(name, city, music_type)
+
             try:
                 connection = connection_with_data_base()
                 cursor = connection.cursor()
                 insertQuery = "INSERT INTO bandmanage.bands(name, city, music_type) VALUES(%(name)s, %(city)s, %(music_type)s)"
                 insertData = {
-                    "name": name,
-                    "city": city,
-                    "music_type": music_type
+                    "name": new_band.name,
+                    "city": new_band.city,
+                    "music_type": new_band.music_type
                 }
                 cursor.execute(insertQuery, insertData)
                 connection.commit()
