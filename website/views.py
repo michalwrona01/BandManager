@@ -39,4 +39,6 @@ def create_new_band():
 
 @views.route('/manage-your-band')
 def manage_your_band():
-    return render_template('manage_your_band.html', user=current_user)
+    bands = Band.query.filter_by(user_id_admin=current_user.id).all()
+    print(bands)
+    return render_template('manage_your_band.html', user=current_user, bands=bands)

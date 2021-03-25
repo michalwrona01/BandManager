@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Manage Your Band{% endblock %}
 {% block content %}
+<br/> 
+
+<h1 style="font-size: 58px;">Welcome {{ user.first_name }}!</h1>
+<br/>
+<h1 style="font-size: 46px;"">Choose which band you want to manage</h1>
+<br/>
+{% if bands == [] %}
+    <h2>You don't have any bands.</h2>
+{% else %}
+    <div class="buttons" style="text-align: center;">
+        {% for band in bands %}
+            <button type="button" class="btn btn-outline-danger btn-block" style="font-size: 36px; font-">{{band.name}}</button>
+            <br>
+        {% endfor %}
+    </div>
+{% endif %}
 
 {% endblock %}
