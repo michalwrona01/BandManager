@@ -13,6 +13,8 @@ def sing_up():
         first_name = request.form.get('first_name')
         surname = request.form.get('surname')
         email = request.form.get('email')
+        telephone = request.form.get('telephone')
+        instrument = request.form.get('instrument')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
@@ -25,14 +27,17 @@ def sing_up():
             flash("Surname must be at least 3 characters.", category="error")
         elif len(email) < 3:
             flash("Email must be at least 4 characters.", category="error")
+        elif len(telephone) < 6:
+            flash("Email must be at least 7 characters.", category="error")
         elif len(password1) < 6:
             flash("Password must be at least 7 characters.", category="error")
         elif password1 != password2:
             flash("Passwords don't match.", category="error")
         else:
-            new_user = User(first_name=first_name, surname=surname, email=email, 
+            new_user = User(first_name=first_name, surname=surname, email=email, telephone_number=telephone, instrument=instrument,
                             password=generate_password_hash(password1, method="sha256"))                         
             db.session.add(new_user)
+
             db.session.commit()
             flash("You have been registered.", category="success")
             return redirect(url_for('views.home'))

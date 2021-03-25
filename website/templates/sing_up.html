@@ -36,6 +36,31 @@
         >
     </div>
     <div class="form-group">
+        <label for="telephone">Telephone Number</label>
+        <input 
+            type="tel" 
+            class="form-control" 
+            id="telephone"
+            name="telephone"
+            placeholder="Enter telephone number"
+        >
+    </div>
+    <div class="form-group">
+        <label for="instrument">Choose Instrument</label>
+        <select class="custom-select" name="instrument">
+            <option selected>Open this select menu</option>
+            <option value="Drums">Drums</option>
+            <option value="Piano">Piano</option>
+            <option value="Guitar Acoustic">Guitar Acoustic</option>
+            <option value="Guitar Electric">Guitar Electric</option>
+            <option value="Vocal">Vocal</option>
+            <option value="Bass">Bass</option>
+            <option value="Saxophone">Saxophone</option>
+            <option value="Trumpet">Trumpet</option>
+            <option value="Keys">Keys</option>
+        </select>
+    </div>
+    <div class="form-group">
         <label for="emial">Password</label>
         <input 
             type="password" 
@@ -56,5 +81,6 @@
         >
     </div>
     <button type="submit" class="btn btn-primary">Sumbit</button>
+    <br><br/>
 </form>
 {% endblock %}

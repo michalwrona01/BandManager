@@ -1,4 +1,3 @@
-from enum import unique
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -9,7 +8,11 @@ class User(db.Model, UserMixin):
     surname = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
-    bands = db.relationship('Band')
+    telephone_number = db.Column(db.Integer)
+    instrument = db.Column(db.String(150))
+    band_id = db.Column(db.Integer)
+    band = db.relationship('Band')
+
 
 class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)

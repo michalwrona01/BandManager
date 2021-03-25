@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Manage Your Band{% endblock %}
+{% block content %}
+<br/> 
+<h1 align="center">{{band.name}}</h1>
+<br><br/>
+<div class="row">
+    <div class="col-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"  style="font-size: 22px;">
+        <a class="nav-link active" id="v-pills-members-tab" data-toggle="pill" href="#v-pills-members" role="tab" aria-controls="v-pills-home" aria-selected="true">Members</a>
+        <a class="nav-link" id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="false">Orders</a>
+        <a class="nav-link" id="v-pills-wallet-tab" data-toggle="pill" href="#v-pills-wallet" role="tab" aria-controls="v-pills-wallet" aria-selected="false">Wallet</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+        <a class="nav-link" id="v-pills-songbook-tab" data-toggle="pill" href="#v-pills-songbook" role="tab" aria-controls="v-pills-songbook" aria-selected="false">SongBook</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="tab-content" id="v-pills-tabContent" >
+        <div class="tab-pane fade show active" id="v-pills-members" role="tabpanel" aria-labelledby="v-pills-members-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name </th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telephone Number</th>
+                    <th scope="col">Instrument</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                  <tr>
+                    <th scope="row">{{user.id}}</th>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.surname}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.telephone_number}}</td>
+                    <td>{{user.instrument}}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            <form method="GET" action="/community">
+                <button type="submit" class="btn btn-primary">Add New Member</button>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
+            
+        </div>
+        <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab">
+            
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            
+        </div>
+        <div class="tab-pane fade" id="v-pills-songbook" role="tabpanel" aria-labelledby="v-pills-songbook-tab">
+            
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
