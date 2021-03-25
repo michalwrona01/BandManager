@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, flash
-from .models import connection_with_data_base, User, User_Login
-import mysql.connector
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
+from .models import User
+from . import db
+from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint("auth", __name__)
 
@@ -15,7 +16,10 @@ def sing_up():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
-        if len(first_name) < 2:
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash("Email alredy exists.", category="error")
+        elif len(first_name) < 2:
             flash("First name must be at least 3 characters.", category="error")
         elif len(surname) < 2:
             flash("Surname must be at least 3 characters.", category="error")
@@ -26,27 +30,16 @@ def sing_up():
         elif password1 != password2:
             flash("Passwords don't match.", category="error")
         else:
-            try:
-                hashed_password = generate_password_hash(password1, method='sha256')
-                new_user = User(first_name, surname, email, hashed_password)
-                connection = connection_with_data_base()
-                cursor = connection.cursor()
-                insertQuery = "INSERT INTO bandmanage.users(first_name, surname, email, password) VALUES(%(first_name)s, %(surname)s, %(email)s, %(password)s)"
-                insertData = {
-                    "first_name": new_user.first_name,
-                    "surname": new_user.surname,
-                    "email": new_user.email,
-                    "password": new_user.password
-                }
-                cursor.execute(insertQuery, insertData)
-                connection.commit()
-                flash("You have been registered.", category="success")
-            except mysql.connector.errors.IntegrityError:
-                flash("You are already registered.", category="error")
-            finally:
-                connection.close()
+            new_user = User(first_name=first_name, surname=surname, email=email, 
+                            password=generate_password_hash(password1, method="sha256"))                         
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(user, remember=True)
+            flash("You have been registered.", category="success")
+            return redirect(url_for('views.home'))
 
-    return render_template("sing_up.html")
+
+    return render_template("sing_up.html", user=current_user)
 
 
 
@@ -56,26 +49,26 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        connection = connection_with_data_base()
-        cursor = connection.cursor(dictionary=True)
-        inserQuery = "SELECT id, email, password FROM users"
-        cursor.execute(inserQuery)
+        user = User.query.filter_by(email=email).first()
 
-        is_exists = True
-        for user in cursor:
-            if user["email"] == email:
-                is_exists = False
-                if check_password_hash(user['password'], password):
-                    flash("You just have been logged.", category="success")
-                    user = User_Login(user["id"], user["email"], True)
-                    break
-                else:
-                    flash("Inccorect password, try again.", category="error")
-
-        if is_exists:
+        if user:
+            if check_password_hash(user.password, password):
+                flash("You just have been logged.", category="success")
+                login_user(user, remember=True)
+                return redirect(url_for('views.home'))
+            else:
+                flash("Inccorect password, try again.", category="error")
+        else:
             flash("Account don't exist.", category="error")
 
-    return render_template("login.html")
+
+    return render_template("login.html", user=current_user)
+
+@auth.route('logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('views.home'))
 
 
 

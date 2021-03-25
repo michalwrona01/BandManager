@@ -1,44 +1,42 @@
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask.globals import request
-from .models import connection_with_data_base, Band
-import mysql.connector
+from .models import Band
+from flask_login import current_user, login_required
+from . import db
 
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', user=current_user)
 
 @views.route('/create-new-band', methods=['GET', 'POST'])
+@login_required
 def create_new_band():
     if request.method == 'POST':
         name = request.form.get('name')
         city = request.form.get('city')
         music_type = request.form.get('music_type')
 
-        if len(name) < 2:
+        band = Band.query.filter_by(name=name).first()
+        if band:
+            flash("You are already registered.", category="error")
+
+        elif len(name) < 2:
             flash("Name must be at least 3 characters.", category="error")
         elif len(city) < 2:
             flash("City must be at least 3 characters.", category="error")
         else:
-            new_band = Band(name, city, music_type)
+            new_band = Band(name=name, city=city, music_type=music_type, password=None, user_id_admin=current_user.id)
+            db.session.add(new_band)
+            db.session.commit()
+            flash("You have been registered.", category="success")
+            return redirect(url_for("views.home"))
 
-            try:
-                connection = connection_with_data_base()
-                cursor = connection.cursor()
-                insertQuery = "INSERT INTO bandmanage.bands(name, city, music_type) VALUES(%(name)s, %(city)s, %(music_type)s)"
-                insertData = {
-                    "name": new_band.name,
-                    "city": new_band.city,
-                    "music_type": new_band.music_type
-                }
-                cursor.execute(insertQuery, insertData)
-                connection.commit()
-                flash("You have been registered.", category="success")
-            except mysql.connector.errors.IntegrityError:
-                flash("You are already registered.", category="error")
-            finally:
-                connection.close()
+            
+    return render_template('create_new_band.html', user=current_user)
 
-    return render_template('create_new_band.html')
+@views.route('/manage-your-band')
+def manage_your_band():
+    return render_template('manage_your_band.html', user=current_user)

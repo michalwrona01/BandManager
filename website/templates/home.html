@@ -12,11 +12,24 @@
 
     <br/>
 
-    <form method="GET" action="/sing-up">
-        <button type="submit" class="btn btn-primary btn-lg">
-            <span style="font-size: 30px;">Sing Up</span>
-        </button>
-    </form>
+    {% if not user.is_authenticated %}
+    <div class="buttons" style="clear: both">
+        <form method="GET" action="/login">
+            <button type="submit" class="btn btn-primary btn-lg" style="float:left">
+                <span style="font-size: 30px; ">Login</span>
+            </button>
+        </form>
+
+        <form method="GET" action="/sing-up">
+            <button type="submit" class="btn btn-primary btn-lg" style="margin-left: 20px;">
+                <span style="font-size: 30px;">Sing Up</span>
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
+    
+
 </div>
 
 <div class="container_right" style="float:right; margin-right: 100px;">
