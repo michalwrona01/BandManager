@@ -2,7 +2,11 @@
 {% block title %}Manage Your Band{% endblock %}
 {% block content %}
 <br/> 
-<h1 align="center">{{band.name}}</h1>
+{% if band.user_id_admin == user.id %}
+  <h1 align="center">{{band.name}} - You are admin this music band!</h1>
+{% else %}
+  <h1 align="center">{{band.name}} - You are a member of a music band!</h1>
+{% endif %}
 <br><br/>
 <div class="row">
     <div class="col-3">
@@ -30,9 +34,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for user in users %}
+                {% for i, user in users_in_this_band %} 
                   <tr>
-                    <th scope="row">{{user.id}}</th>
+                    <th scope="row">{{i}}</th>
                     <td>{{user.first_name}}</td>
                     <td>{{user.surname}}</td>
                     <td>{{user.email}}</td>
@@ -42,9 +46,77 @@
                 {% endfor %}
                 </tbody>
               </table>
-            <form method="GET" action="/community">
-                <button type="submit" class="btn btn-primary">Add New Member</button>
-            </form>
+
+              {% if band.user_id_admin == user.id %}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewMembersModal">
+                  Add New Members
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMembersModal" style="float:right;">
+                  Delete Members
+                </button>
+              {% else %}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewMembersModal" disabled>
+                  Add New Members
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMembersModal" style="float:right;" disabled>
+                  Delete Members
+                </button>
+              {% endif %}
+
+                
+
+              <div class="modal fade" id="addNewMembersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      {% for user_without_band in users_without_band %}
+                      <form method="POST" action="/manage-your-band/add/{{user_without_band.id}}">
+                      <button type="submit" value=user_without_band.id class="btn btn-info" style="margin-bottom: 10px;">
+                        {{user_without_band.first_name}} {{user_without_band.surname}}, {{user_without_band.instrument}}
+                      </button>
+                      <br/>
+                      </form>
+                      {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="deleteMembersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      {% for _, user_in_this_band in users_in_this_band %}
+                      <form method="POST" action="/manage-your-band/delete/{{user_in_this_band.id}}">
+                      <button type="submit" value=user_in_this_band.id class="btn btn-info" style="margin-bottom: 10px;">
+                        {{user_in_this_band.first_name}} {{user_in_this_band.surname}}, {{user_in_this_band.instrument}}
+                      </button>
+                      <br/>
+                      </form>
+                      {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         </div>
         <div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
             
