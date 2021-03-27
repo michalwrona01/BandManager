@@ -26,9 +26,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/" id="home">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/create-new-band" id="create_new_band">Create New Band</a>
-          </li>
+          {% if user.band_id == None %}
+            <li class="nav-item">
+              <a class="nav-link" href="/create-new-band" id="create_new_band">Create New Band</a>
+            </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="/manage-your-band" id="manage_your_band">Manage Your Band</a>
           </li>

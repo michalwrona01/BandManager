@@ -10,7 +10,6 @@
 {% if bands == [] %}
     <h2>You don't have any bands.</h2>
 {% else %}
-
 {% for band in bands %}
 <form method="POST" action="/manage-your-band/{{ band.id }}">
     <div class="buttons" style="text-align: center;">
@@ -19,6 +18,35 @@
     </div>
 </form>
 {% endfor %}
-{% endif %}
 
+{% if user.band_id == bands.user_id_admin %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
+    DELETE BAND
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Are you sure you want to do this?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Your band's music details will be deleted <b>FOREVER</b>!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form method="POST" action="/manage-your-band/delete/band/{{ current_user.band_id }}">
+                <button type="submit" class="btn btn-primary" value={{ current_user.band_id }}>Understood</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endif %}
 {% endblock %}

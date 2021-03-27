@@ -97,6 +97,23 @@ def delete_member(user_id):
     
     return redirect(url_for('views.band_manager', band_id=band.id))
 
+@views.route('/manage-your-band/delete/band/<int:band_id>', methods=['POST'])
+@login_required
+def delete_band(band_id):
+    if request.method == "POST":
+        users = User.query.filter_by(band_id=band_id).all()
+        
+        for user in users:
+            user.band_id = None
+
+        db.session.commit()
+
+        band = Band.query.filter_by(id=band_id).first()
+        db.session.delete(band)
+        db.session.commit()
+
+    return redirect(url_for('views.manage_your_band'))
+
 
 @views.route('/community', methods=['GET'])
 @login_required

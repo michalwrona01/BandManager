@@ -103,9 +103,11 @@
                     <div class="modal-body">
                       {% for _, user_in_this_band in users_in_this_band %}
                       <form method="POST" action="/manage-your-band/delete/{{user_in_this_band.id}}">
+                      {% if user_in_this_band.id != current_user.id %}
                       <button type="submit" value=user_in_this_band.id class="btn btn-info" style="margin-bottom: 10px;">
                         {{user_in_this_band.first_name}} {{user_in_this_band.surname}}, {{user_in_this_band.instrument}}
                       </button>
+                      {% endif %}
                       <br/>
                       </form>
                       {% endfor %}
