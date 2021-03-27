@@ -11,7 +11,9 @@ class User(db.Model, UserMixin):
     telephone_number = db.Column(db.Integer)
     instrument = db.Column(db.String(150))
     band_id = db.Column(db.Integer)
+    wallet = db.Column(db.Integer) 
     band = db.relationship('Band')
+    
 
 
 class Band(db.Model):
@@ -22,4 +24,27 @@ class Band(db.Model):
     password = db.Column(db.String(150))
     user_id_admin = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    budget = db.Column(db.Integer)
 
+
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+
+    groom_firstname = db.Column(db.String(150))
+    groom_surname = db.Column(db.String(150))
+    groom_telephone = db.Column(db.Integer)
+    groom_email = db.Column(db.String(150))
+
+    bride_firstname = db.Column(db.String(150))
+    bride_surname = db.Column(db.String(150))
+    bride_telephone = db.Column(db.Integer)
+    bride_email = db.Column(db.String(150))
+
+    restaurant_name = db.Column(db.String(150))
+    restaurant_address = db.Column(db.String(150))
+
+    note = db.Column(db.String(1000))
+
+    band_id = db.Column(db.Integer)
+
+    band = db.relationship('Band')
