@@ -16,9 +16,13 @@ def create_app():
 
     from .views import views
     from .auth import auth
+    from website.app.band import band
+    from website.app.members import members
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(members, url_prefix='/')
+    app.register_blueprint(band, url_prefix='/')
 
     from .models import User, Band
     create_database(app)
