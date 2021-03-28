@@ -17,13 +17,12 @@
             <br>
     </div>
 </form>
-{% endfor %}
 
-{% if user.band_id == bands.user_id_admin %}
+{% if user.id == band.user_id_admin %}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
     DELETE BAND
-  </button>
+</button>
   
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -48,5 +47,6 @@
     </div>
   </div>
 {% endif %}
+{% endfor %}
 {% endif %}
 {% endblock %}

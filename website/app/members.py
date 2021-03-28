@@ -14,7 +14,7 @@ def add_new_member(user_id):
         db.session.commit()
 
     band = Band.query.filter_by(user_id_admin=current_user.id).first()
-    return redirect(url_for('views.band_manager', band_id=band.id))
+    return redirect(url_for('band.band_manager', band_id=band.id))
 
 @members.route('/manage-your-band/delete/<int:user_id>', methods=['POST'])
 @login_required
@@ -26,5 +26,5 @@ def delete_member(user_id):
 
     band = Band.query.filter_by(user_id_admin=current_user.id).first()
     
-    return redirect(url_for('views.band_manager', band_id=band.id))
+    return redirect(url_for('band.band_manager', band_id=band.id))
 

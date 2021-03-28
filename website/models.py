@@ -44,7 +44,6 @@ class Orders(db.Model):
     restaurant_address = db.Column(db.String(150))
 
     note = db.Column(db.String(1000))
+    price = db.Column(db.Integer)
 
     band_id = db.Column(db.Integer)
-
-    band = db.relationship('Band')

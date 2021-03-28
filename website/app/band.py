@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, request, url_for, render_template
-from website.models import User, Band, db
+from website.models import User, Band, db, Orders
 from flask_login import login_required, current_user
 
 band = Blueprint('band', __name__)
@@ -17,10 +17,12 @@ def band_manager(band_id):
         list_with_index_and_user_object.append([index, user])
         index += 1
 
+    orders = Orders.query.filter_by(band_id=band.id).all()
+
 
 
     return render_template('band_manager.html', user=current_user, band=band, 
-                            users_in_this_band=list_with_index_and_user_object, users_without_band=users_without_band)
+                            users_in_this_band=list_with_index_and_user_object, users_without_band=users_without_band, orders=orders)
 
 @band.route('/manage-your-band/delete/band/<int:band_id>', methods=['POST'])
 @login_required
