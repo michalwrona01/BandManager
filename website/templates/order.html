@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Manage Your Band{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<br>
+
+<h1 align="center">Wedding {{ order.bride_firstname }} i {{order.groom_firstname}}</h1>
+<br>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Groom First</th>
+        <th scope="col">Groom Last</th>
+        <th scope="col">Groom Telephone</th>
+        <th scope="col">Groom Email</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{order.groom_firstname}}</td>
+            <td>{{order.groom_surname}}</td>
+            <td>{{order.groom_telephone}}</td>
+            <td>{{order.groom_email}}</td>
+          </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Bride First</th>
+        <th scope="col">Bride Last</th>
+        <th scope="col">Bride Telephone</th>
+        <th scope="col">Bride Email</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+      <td>{{order.bride_firstname}}</td>
+        <td>{{order.bride_surname}}</td>
+        <td>{{order.bride_telephone}}</td>
+        <td>{{order.bride_email}}</td>
+        </tr>
+    </tbody>
+  </table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" >Restaurant Name</th>
+        <th scope="col">Restaurant Address</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{order.restaurant_name}}</td>
+            <td>{{order.restaurant_address}}</td>
+            <td>{{order.price}} zł</td>
+          </tr>
+    </tbody>
+  </table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Note</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{order.note}}</td>
+          </tr>
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}

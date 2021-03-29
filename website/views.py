@@ -4,12 +4,13 @@ from .models import Band, User
 from flask_login import current_user, login_required
 from . import db
 
-
 views = Blueprint('views', __name__)
+
 
 @views.route('/')
 def home():
     return render_template('home.html', user=current_user)
+
 
 @views.route('/create-new-band', methods=['GET', 'POST'])
 @login_required
@@ -38,8 +39,8 @@ def create_new_band():
             flash("You have been registered.", category="success")
             return redirect(url_for("views.home"))
 
-            
     return render_template('create_new_band.html', user=current_user)
+
 
 @views.route('/manage-your-band', methods=['GET'])
 @login_required
@@ -58,6 +59,6 @@ def manage_your_band():
 @views.route('/community', methods=['GET'])
 @login_required
 def community_show():
-    users  = User.query.all()
-    
+    users = User.query.all()
+
     return render_template('community.html', user=current_user, users=users)

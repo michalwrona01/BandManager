@@ -174,13 +174,60 @@
                         <label for="exampleFormControlTextarea1">Note</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Order</button>
+                    {% if user.id == band.user_id_admin %}
+                        <button type="submit" class="btn btn-primary">Add Order</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary"disabled>Add Order</button>
+                    {% endif %}
                 </form>
                 <br></br>
             </div>
         
             <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab">
-                
+                <div class="list-group">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            <h3 align="left">Account balance: {{user.wallet}} zł</h3> 
+                            <h3 align="left">Band budget: {{band.budget}} zł</h3>
+                          </div>
+                          <div class="row">
+                            <div class="input-group">
+                                <form id="form1" method="POST" action="/manage-your-band/donate/user_id={{user.id}}/band_id={{band.id}}">
+                                <form id="form2" method="POST" action="/manage-your-band/expense/user_id={{user.id}}/band_id={{band.id}}">
+                                <input name="cost" type="number" class="form-control" placeholder="[zł]">
+                              <label for="inputDescription"></label>
+                                <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description"></input>
+                            </form>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <br>
+                    <a class="btn btn-primary" href="#" role="button">
+                        <button form="form1" type="submit" class="btn btn-success btn-lg">Donate</button>
+                        <button form="form2" type="submit" class="btn btn-danger btn-lg">Add Expense</button>
+                        <button type="button" class="btn btn-warning btn-lg">Withdraw</button>
+                    </a>
+                    <br>
+                    <h3 align="center">History</h3>
+                    {% if user.is_authenticated %}
+                    {% for user_in_this_band in users_in_this_band %}
+                        {% for payment in bank %}
+                            {% if payment.donate == True and payment.band_id == user.band_id and payment.user_id == users_in_this_band_for_wallet.id%}
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-success" style="text-align: right;">Donate | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
+                            {% elif payment.donate == True and payment.band_id == user.band_id and payment.user_id != users_in_this_band_for_wallet.id %}
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-success" style="text-align: left;">Donate | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
+                            {% elif payment.expense == True and payment.band_id == user.band_id and payment.user_id == users_in_this_band_for_wallet.id %}
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-danger" style="text-align: right;">Expense | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
+                            {% elif payment.expense == True and payment.band_id == user.band_id and payment.user_id != users_in_this_band_for_wallet.id %}
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-danger" style="text-align: left;">Expense | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
+                            {% endif %}   
+                        {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                  </div>
             </div>
             <div class="tab-pane fade" id="v-display-pills-orders" role="tabpanel" aria-labelledby="v-display-pills-orders">
                 {% for order in orders %}
@@ -190,22 +237,25 @@
                       <h6 class="card-subtitle mb-2 text-muted">{{ order.restaurant_name }} - {{ order.restaurant_address }}</h6>
                       <p class="card-text">{{ order.note }}</p>
                     <a href="#" class="card-link">
-                        <form method="POST" action="/manage-your-band/orders/get/{{order.id}}">
+                        <form method="GET" action="/manage-your-band/orders/get/{{order.id}}">
                             <button type="submit" class="btn btn-outline-primary">See more</button>
                         </form>
                     </a>
                     <a href="#" class="card-link">
                         <form method="POST" action="/manage-your-band/orders/delete/{{order.id}}">
-                            <button type="submit" class="btn btn-outline-danger">Delete order</button>
+                            {% if user.id == band.user_id_admin %}
+                                <button type="submit" class="btn btn-outline-danger">Delete order</button>
+                            {% else %}
+                                <button type="submit" class="btn btn-outline-danger" disabled>Delete order</button>
+                            {% endif %}
                         </form>
                     </a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab">
-            </div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            
             </div>
             <div class="tab-pane fade" id="v-pills-songbook" role="tabpanel" aria-labelledby="v-pills-songbook-tab">
             </div>

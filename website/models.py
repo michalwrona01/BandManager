@@ -2,6 +2,7 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     first_name = db.Column(db.String(150))
@@ -11,9 +12,8 @@ class User(db.Model, UserMixin):
     telephone_number = db.Column(db.Integer)
     instrument = db.Column(db.String(150))
     band_id = db.Column(db.Integer)
-    wallet = db.Column(db.Integer) 
+    wallet = db.Column(db.Integer, default=0)
     band = db.relationship('Band')
-    
 
 
 class Band(db.Model):
@@ -24,7 +24,7 @@ class Band(db.Model):
     password = db.Column(db.String(150))
     user_id_admin = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-    budget = db.Column(db.Integer)
+    budget = db.Column(db.Integer, default=0)
 
 
 class Orders(db.Model):
@@ -44,6 +44,23 @@ class Orders(db.Model):
     restaurant_address = db.Column(db.String(150))
 
     note = db.Column(db.String(1000))
-    price = db.Column(db.Integer)
+    price = db.Column(db.Integer, default=0)
 
     band_id = db.Column(db.Integer)
+
+class Bank(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+
+    user_id = db.Column(db.Integer)
+    band_id = db.Column(db.Integer)
+
+    donate = db.Column(db.Boolean, default=False)
+    payment = db.Column(db.Boolean, default=False)
+    expense = db.Column(db.Boolean, default=False)
+
+    cost = db.Column(db.Integer)
+
+    description = db.Column(db.String(100))
+
+
+
