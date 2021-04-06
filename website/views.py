@@ -62,3 +62,4 @@ def community_show():
     users = User.query.all()
 
     return render_template('community.html', user=current_user, users=users)
+

@@ -55,7 +55,7 @@ class Bank(db.Model):
     band_id = db.Column(db.Integer)
 
     donate = db.Column(db.Boolean, default=False)
-    payment = db.Column(db.Boolean, default=False)
+    withdraw = db.Column(db.Boolean, default=False)
     expense = db.Column(db.Boolean, default=False)
 
     cost = db.Column(db.Integer)

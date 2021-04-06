@@ -9,259 +9,295 @@
 {% endif %}
 <br><br/>
 <div class="row">
-    <div class="col-3">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"  style="font-size: 22px;">
-            <a class="nav-link active" id="v-pills-members-tab" data-toggle="pill" href="#v-pills-members" role="tab" aria-controls="v-pills-home" aria-selected="true">Members</a>
-            <a class="nav-link" id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="false">Add Orders</a>
-            <a class="nav-link" id="v-pills-wallet-tab" data-toggle="pill" href="#v-pills-wallet" role="tab" aria-controls="v-pills-wallet" aria-selected="false">Wallet</a>
-            <a class="nav-link" id="v-pills-display-orders-tab" data-toggle="pill" href="#v-display-pills-orders" role="tab" aria-controls="v-display-pills-orders" aria-selected="false">Display Orders</a>
-            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-            <a class="nav-link" id="v-pills-songbook-tab" data-toggle="pill" href="#v-pills-songbook" role="tab" aria-controls="v-pills-songbook" aria-selected="false">SongBook</a>
-            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
-        </div>
+<div class="col-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"  style="font-size: 22px;">
+        <a class="nav-link active" id="v-pills-members-tab" data-toggle="pill" href="#v-pills-members" role="tab" aria-controls="v-pills-home" aria-selected="true">Members</a>
+        <a class="nav-link" id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="false">Add Orders</a>
+        <a class="nav-link" id="v-pills-wallet-tab" data-toggle="pill" href="#v-pills-wallet" role="tab" aria-controls="v-pills-wallet" aria-selected="false">Wallet</a>
+        <a class="nav-link" id="v-pills-display-orders-tab" data-toggle="pill" href="#v-display-pills-orders" role="tab" aria-controls="v-display-pills-orders" aria-selected="false">Display Orders</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+        <a class="nav-link" id="v-pills-songbook-tab" data-toggle="pill" href="#v-pills-songbook" role="tab" aria-controls="v-pills-songbook" aria-selected="false">SongBook</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
     </div>
-    <div class="col-9">
-        <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-members" role="tabpanel" aria-labelledby="v-pills-members-tab">
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name </th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Telephone Number</th>
-                            <th scope="col">Instrument</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i, user in users_in_this_band %} 
-                        <tr>
-                            <th scope="row">{{i}}</th>
-                            <td>{{user.first_name}}</td>
-                            <td>{{user.surname}}</td>
-                            <td>{{user.email}}</td>
-                            <td>{{user.telephone_number}}</td>
-                            <td>{{user.instrument}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% if band.user_id_admin == user.id %}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewMembersModal">
-                Add New Members
-                </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMembersModal" style="float:right;">
-                Delete Members
-                </button>
+</div>
+<div class="col-9">
+    <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-members" role="tabpanel" aria-labelledby="v-pills-members-tab">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name </th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telephone Number</th>
+                        <th scope="col">Instrument</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i, user in users_in_this_band %} 
+                    <tr>
+                        <th scope="row">{{i}}</th>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.surname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.telephone_number}}</td>
+                        <td>{{user.instrument}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if band.user_id_admin == user.id %}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewMembersModal">
+            Add New Members
+            </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMembersModal" style="float:right;">
+            Delete Members
+            </button>
+            {% else %}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewMembersModal" disabled>
+            Add New Members
+            </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMembersModal" style="float:right;" disabled>
+            Delete Members
+            </button>
+            {% endif %}
+            <div class="modal fade" id="addNewMembersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% for user_without_band in users_without_band %}
+                            <form method="POST" action="/manage-your-band/add/{{user_without_band.id}}">
+                                <button type="submit" value=user_without_band.id class="btn btn-info" style="margin-bottom: 10px;">
+                                {{user_without_band.first_name}} {{user_without_band.surname}}, {{user_without_band.instrument}}
+                                </button>
+                                <br/>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteMembersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% for _, user_in_this_band in users_in_this_band %}
+                            <form method="POST" action="/manage-your-band/delete/{{user_in_this_band.id}}">
+                                {% if user_in_this_band.id != current_user.id %}
+                                <button type="submit" value=user_in_this_band.id class="btn btn-info" style="margin-bottom: 10px;">
+                                {{user_in_this_band.first_name}} {{user_in_this_band.surname}}, {{user_in_this_band.instrument}}
+                                </button>
+                                {% endif %}
+                                <br/>
+                            </form>
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
+            <form method="POST" action="/manage-your-band/orders/add">
+                <h2 align="center">Groom</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputFirstName1">Frist Name</label>
+                        <input type="text" class="form-control" id="inputFirstName1" name="groom_firstname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputSurname1">Surname</label>
+                        <input type="text" class="form-control" id="inputSurname1" name="groom_surname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail1">Email</label>
+                        <input type="email" class="form-control" id="inputEmail1" name="groom_email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputTelephoneNumber1">Telephone Number</label>
+                        <input type="tel" class="form-control" id="inputTelephoneNumber1" name="groom_telephone">
+                    </div>
+                </div>
+                <br>
+                <h2 align="center">Bride</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputFirstName2">Frist Name</label>
+                        <input type="text" class="form-control" id="inputFirstName2" name="bride_firstname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputSurname2">Surname</label>
+                        <input type="text" class="form-control" id="inputSurname2" name="bride_surname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail2">Email</label>
+                        <input type="email" class="form-control" id="inputEmail2" name="bride_email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputTelephoneNumber2">Telephone Number</label>
+                        <input type="tel" class="form-control" id="inputTelephoneNumber2" name="bride_telephone">
+                    </div>
+                </div>
+                <br>
+                <h2 align="center">Wedding</h2>
+                <div class="form-group">
+                    <label for="inputAddress">Restaurant Name</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Restaurant name" name="restaurant_name">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="restaurant_address">
+                </div>
+                <div class="form-group">
+                    <label for="inputPrice">Price</label>
+                    <input type="number" class="form-control" id="inputPrice" placeholder="Price[zł]" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Note</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
+                </div>
+                {% if user.id == band.user_id_admin %}
+                <button type="submit" class="btn btn-primary">Add Order</button>
                 {% else %}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewMembersModal" disabled>
-                Add New Members
-                </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMembersModal" style="float:right;" disabled>
-                Delete Members
-                </button>
+                <button type="submit" class="btn btn-primary"disabled>Add Order</button>
                 {% endif %}
-                <div class="modal fade" id="addNewMembersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {% for user_without_band in users_without_band %}
-                                <form method="POST" action="/manage-your-band/add/{{user_without_band.id}}">
-                                    <button type="submit" value=user_without_band.id class="btn btn-info" style="margin-bottom: 10px;">
-                                    {{user_without_band.first_name}} {{user_without_band.surname}}, {{user_without_band.instrument}}
-                                    </button>
-                                    <br/>
-                                </form>
-                                {% endfor %}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="deleteMembersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Delete Member</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {% for _, user_in_this_band in users_in_this_band %}
-                                <form method="POST" action="/manage-your-band/delete/{{user_in_this_band.id}}">
-                                    {% if user_in_this_band.id != current_user.id %}
-                                    <button type="submit" value=user_in_this_band.id class="btn btn-info" style="margin-bottom: 10px;">
-                                    {{user_in_this_band.first_name}} {{user_in_this_band.surname}}, {{user_in_this_band.instrument}}
-                                    </button>
-                                    {% endif %}
-                                    <br/>
-                                </form>
-                                {% endfor %}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
-                <form method="POST" action="/manage-your-band/orders/add">
-                    <h2 align="center">Groom</h2>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputFirstName1">Frist Name</label>
-                            <input type="text" class="form-control" id="inputFirstName1" name="groom_firstname">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputSurname1">Surname</label>
-                            <input type="text" class="form-control" id="inputSurname1" name="groom_surname">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail1">Email</label>
-                            <input type="email" class="form-control" id="inputEmail1" name="groom_email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputTelephoneNumber1">Telephone Number</label>
-                            <input type="tel" class="form-control" id="inputTelephoneNumber1" name="groom_telephone">
-                        </div>
-                    </div>
-                    <br>
-                    <h2 align="center">Bride</h2>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputFirstName2">Frist Name</label>
-                            <input type="text" class="form-control" id="inputFirstName2" name="bride_firstname">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputSurname2">Surname</label>
-                            <input type="text" class="form-control" id="inputSurname2" name="bride_surname">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail2">Email</label>
-                            <input type="email" class="form-control" id="inputEmail2" name="bride_email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputTelephoneNumber2">Telephone Number</label>
-                            <input type="tel" class="form-control" id="inputTelephoneNumber2" name="bride_telephone">
-                        </div>
-                    </div>
-                    <br>
-                    <h2 align="center">Wedding</h2>
-                    <div class="form-group">
-                        <label for="inputAddress">Restaurant Name</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="Restaurant name" name="restaurant_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="restaurant_address">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPrice">Price</label>
-                        <input type="number" class="form-control" id="inputPrice" placeholder="Price[zł]" name="price">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Note</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
-                    </div>
-                    {% if user.id == band.user_id_admin %}
-                        <button type="submit" class="btn btn-primary">Add Order</button>
-                    {% else %}
-                        <button type="submit" class="btn btn-primary"disabled>Add Order</button>
-                    {% endif %}
-                </form>
-                <br></br>
-            </div>
-        
-            <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab">
-                <div class="list-group">
-                    <div class="container">
-                        <div class="row">
-                          <div class="col">
-                            <h3 align="left">Account balance: {{user.wallet}} zł</h3> 
+            </form>
+            <br></br>
+        </div>
+        <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab">
+            <div class="list-group">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h3 align="left">Account balance: {{user.wallet}} zł</h3>
                             <h3 align="left">Band budget: {{band.budget}} zł</h3>
-                          </div>
-                          <div class="row">
-                            <div class="input-group">
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 <form id="form1" method="POST" action="/manage-your-band/donate/user_id={{user.id}}/band_id={{band.id}}">
-                                <form id="form2" method="POST" action="/manage-your-band/expense/user_id={{user.id}}/band_id={{band.id}}">
-                                <input name="cost" type="number" class="form-control" placeholder="[zł]">
-                              <label for="inputDescription"></label>
-                                <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description"></input>
-                            </form>
-                            </form>
+                                    <div class="input-group">
+                                        <input name="cost" type="number" class="form-control" placeholder="[zł]">
+                                        <label for="inputDescription"></label>
+                                        <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description"></input>
+                                        </input>
+                                    </div>
+                                    <button style="margin-top: 5px;" form="form1" type="submit" class="btn btn-success btn-lg">Donate Account</button>
+                                </form>
                             </div>
-                          </div>
+                            {% if user.id == band.user_id_admin %}
+                            <div class="col">
+                                <form id="form2" method="POST" action="/manage-your-band/expense/user_id={{user.id}}/band_id={{band.id}}">
+                                    <div class="input-group">
+                                        <input name="cost" type="number" class="form-control" placeholder="[zł]">
+                                        <label for="inputDescription"></label>
+                                        <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description"></input>
+                                        </input>
+                                    </div>
+                                    <button style="margin-top: 5px;" form="form2" type="submit" class="btn btn-danger btn-lg">Add Expense</button>                               
+                                </form>
+                            </div>
+                            {% endif %}
+                            <div class="col">
+                                {% if user.id == band.user_id_admin %}
+                                {% for _, user_in_this_band in users_in_this_band %}
+                                <form method="POST" action="/manage-your-band/withdraw/user_id={{user_in_this_band.id}}/band_id={{band.id}}">
+                                    <div class="input-group">
+                                        <input name="cost" type="number" class="form-control" placeholder="[zł]">
+                                        <label for="inputDescription"></label>
+                                        <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description"></input>
+                                        </input>
+                                    </div>
+                                    <button type="submit" value=user_in_this_band.id class="btn btn-warning btn-lg" style="margin-top: 5px; margin-bottom: 5px;">
+                                    Withdraw | {{user_in_this_band.first_name}}
+                                    </button>
+                                    <br/>
+                                </form>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <br>
-                    <a class="btn btn-primary" href="#" role="button">
-                        <button form="form1" type="submit" class="btn btn-success btn-lg">Donate</button>
-                        <button form="form2" type="submit" class="btn btn-danger btn-lg">Add Expense</button>
-                        <button type="button" class="btn btn-warning btn-lg">Withdraw</button>
-                    </a>
                     <br>
                     <h3 align="center">History</h3>
                     {% if user.is_authenticated %}
-                    {% for user_in_this_band in users_in_this_band %}
-                        {% for payment in bank %}
-                            {% if payment.donate == True and payment.band_id == user.band_id and payment.user_id == users_in_this_band_for_wallet.id%}
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-success" style="text-align: right;">Donate | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
-                            {% elif payment.donate == True and payment.band_id == user.band_id and payment.user_id != users_in_this_band_for_wallet.id %}
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-success" style="text-align: left;">Donate | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
-                            {% elif payment.expense == True and payment.band_id == user.band_id and payment.user_id == users_in_this_band_for_wallet.id %}
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-danger" style="text-align: right;">Expense | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
-                            {% elif payment.expense == True and payment.band_id == user.band_id and payment.user_id != users_in_this_band_for_wallet.id %}
-                                <a href="#" class="list-group-item list-group-item-action list-group-item-danger" style="text-align: left;">Expense | {{payment.cost}} zł | {{users_in_this_band_for_wallet.first_name}} {{users_in_this_band_for_wallet.surname}} | {{payment.description}}</a>
-                            {% endif %}   
-                        {% endfor %}
+                    {% for id, user_in_this_band in users_in_this_band %}
+                    {% for payment in bank %}
+                    {% if payment.user_id == user_in_this_band.id and payment.donate == True and payment.user_id == user.id%}
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-success" style="text-align: right;">Donate | {{payment.cost}} zł | {{user_in_this_band.first_name}} {{user_in_this_band.surname}} | {{payment.description}}</a>
+                    {% elif payment.user_id == user_in_this_band.id and payment.donate == True and payment.user_id != user.id%}
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-success" style="text-align: left;">Donate | {{payment.cost}} zł | {{user_in_this_band.first_name}} {{user_in_this_band.surname}} | {{payment.description}}</a>
+                    {% elif payment.user_id == user_in_this_band.id and payment.expense == True and payment.user_id == user.id%}
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-danger" style="text-align: right;">Expense | {{payment.cost}} zł | {{user_in_this_band.first_name}} {{user_in_this_band.surname}} | {{payment.description}}</a>
+                    {% elif payment.user_id == user_in_this_band.id and payment.expense == True and payment.user_id != user.id%}
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-danger" style="text-align: left;">Expense | {{payment.cost}} zł | {{user_in_this_band.first_name}} {{user_in_this_band.surname}} | {{payment.description}}</a>
+                    {% elif payment.user_id == user_in_this_band.id and payment.withdraw == True and payment.user_id == user.id%}
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-warning" style="text-align: right;">Withdraw | {{payment.cost}} zł | {{user_in_this_band.first_name}} {{user_in_this_band.surname}} | {{payment.description}}</a>
+                    {% elif payment.user_id == user_in_this_band.id and payment.withdraw == True and payment.user_id != user.id%}
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-warning" style="text-align: left;">Withdraw | {{payment.cost}} zł | {{user_in_this_band.first_name}} {{user_in_this_band.surname}} | {{payment.description}}</a>
+                    {% endif %}
+                    {% endfor %}
                     {% endfor %}
                     {% endif %}
-                  </div>
+                </div>
             </div>
+            <br>
+        </div>
             <div class="tab-pane fade" id="v-display-pills-orders" role="tabpanel" aria-labelledby="v-display-pills-orders">
                 {% for order in orders %}
                 <div class="card" style="width: 30rem;">
                     <div class="card-body">
-                      <h5 class="card-title">{{ order.bride_firstname }} i {{ order.groom_firstname }} </h5>
-                      <h6 class="card-subtitle mb-2 text-muted">{{ order.restaurant_name }} - {{ order.restaurant_address }}</h6>
-                      <p class="card-text">{{ order.note }}</p>
-                    <a href="#" class="card-link">
-                        <form method="GET" action="/manage-your-band/orders/get/{{order.id}}">
-                            <button type="submit" class="btn btn-outline-primary">See more</button>
-                        </form>
-                    </a>
-                    <a href="#" class="card-link">
-                        <form method="POST" action="/manage-your-band/orders/delete/{{order.id}}">
-                            {% if user.id == band.user_id_admin %}
+                        <h5 class="card-title">{{ order.bride_firstname }} i {{ order.groom_firstname }} </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ order.restaurant_name }} - {{ order.restaurant_address }}</h6>
+                        <p class="card-text">{{ order.note }}</p>
+                        <a href="#" class="card-link">
+                            <form method="GET" action="/manage-your-band/orders/get/{{order.id}}">
+                                <button type="submit" class="btn btn-outline-primary">See more</button>
+                            </form>
+                        </a>
+                        <a href="#" class="card-link">
+                            <form method="POST" action="/manage-your-band/orders/delete/{{order.id}}">
+                                {% if user.id == band.user_id_admin %}
                                 <button type="submit" class="btn btn-outline-danger">Delete order</button>
-                            {% else %}
+                                {% else %}
                                 <button type="submit" class="btn btn-outline-danger" disabled>Delete order</button>
-                            {% endif %}
-                        </form>
-                    </a>
+                                {% endif %}
+                            </form>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-            
+                <input type="text" id="v-pills-messages">
+                <button type="submit" class="btn btn-primary">Send</button>
+                </input>
             </div>
+
             <div class="tab-pane fade" id="v-pills-songbook" role="tabpanel" aria-labelledby="v-pills-songbook-tab">
             </div>
+
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
             </div>
-        </div>
+        
     </div>
 </div>
 {% endblock %}

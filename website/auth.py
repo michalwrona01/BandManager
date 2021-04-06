@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from . import db
@@ -63,6 +63,7 @@ def login():
             else:
                 flash("Inccorect password, try again.", category="error")
         else:
+            session['email'] = email 
             flash("Account don't exist.", category="error")
 
 
@@ -73,6 +74,8 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('views.home'))
+
+
 
 
 

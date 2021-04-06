@@ -8,7 +8,7 @@ band = Blueprint('band', __name__)
 @login_required
 def band_manager(band_id):
     band = Band.query.filter_by(id=band_id).first()
-    users_in_this_band = User.query.filter_by(band_id=band.id)
+    users_in_this_band = User.query.filter_by(band_id=band.id).all()
     users_without_band = User.query.filter_by(band_id=None).all()
     list_with_index_and_user_object = []
     index = 1
@@ -20,12 +20,13 @@ def band_manager(band_id):
     orders = Orders.query.filter_by(band_id=band.id).all()
     bank = Bank.query.filter_by(band_id=band_id).all()
 
-
+    
 
 
 
     return render_template('band_manager.html', user=current_user, band=band, 
-                            users_in_this_band=list_with_index_and_user_object, users_without_band=users_without_band, orders=orders, bank=bank, users_in_this_band_for_wallet=users_in_this_band)
+    users_in_this_band=list_with_index_and_user_object, users_without_band=users_without_band, 
+    orders=orders, bank=bank, users_in_this_band_for_wallet=users_in_this_band)
 
 @band.route('/manage-your-band/delete/band/<int:band_id>', methods=['POST'])
 @login_required
