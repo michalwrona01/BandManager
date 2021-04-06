@@ -20,6 +20,6 @@ This is my first application where I used the [Flask](https://flask.palletsproje
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install BandManger.
 
 ```bash
-pip install requirements
+pip install -r requirements.txt
 ```
 ## 
