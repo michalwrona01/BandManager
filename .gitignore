@@ -5,3 +5,4 @@ website/app/__pycache__/members.cpython-39.pyc
 website/app/__pycache__/messages.cpython-39.pyc
 website/app/__pycache__/wallet.cpython-39.pyc
 website/database.db
+*.vscode
