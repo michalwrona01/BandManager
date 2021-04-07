@@ -1,4 +1,3 @@
-*.vscode
+.vscode/
 __pycache__/
 bandmanage_env/
-presentation.gif
