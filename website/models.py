@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     band_id = db.Column(db.Integer)
     wallet = db.Column(db.Integer, default=0)
     band = db.relationship('Band')
+    messages = db.relationship('Message')
 
 
 class Band(db.Model):
@@ -63,4 +64,9 @@ class Bank(db.Model):
     description = db.Column(db.String(100))
 
 
-
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    from_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    to_user_id = db.Column(db.Integer)
+    title = db.Column(db.String(255))
+    content = db.Column(db.String(3000))

@@ -20,13 +20,16 @@ def band_manager(band_id):
     orders = Orders.query.filter_by(band_id=band.id).all()
     bank = Bank.query.filter_by(band_id=band_id).all()
 
+    all_users = User.query.all()
     
 
 
-
     return render_template('band_manager.html', user=current_user, band=band, 
-    users_in_this_band=list_with_index_and_user_object, users_without_band=users_without_band, 
-    orders=orders, bank=bank, users_in_this_band_for_wallet=users_in_this_band)
+                            users_in_this_band=list_with_index_and_user_object, 
+                            users_without_band=users_without_band, 
+                            orders=orders, bank=bank, 
+                            users_in_this_band_for_wallet=users_in_this_band, 
+                            all_users=all_users)
 
 @band.route('/manage-your-band/delete/band/<int:band_id>', methods=['POST'])
 @login_required

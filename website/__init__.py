@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.helpers import url_for
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
@@ -21,6 +22,7 @@ def create_app():
     from website.app.members import members
     from website.app.orders import orders
     from website.app.wallet import wallet
+    from website.app.messages import messages
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -28,6 +30,7 @@ def create_app():
     app.register_blueprint(band, url_prefix='/')
     app.register_blueprint(orders, url_prefix='/')
     app.register_blueprint(wallet, url_prefix='/')
+    app.register_blueprint(messages, url_prefix='/')
 
     from .models import User, Band
     create_database(app)

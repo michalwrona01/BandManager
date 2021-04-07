@@ -1,3 +1,7 @@
-.vscode/
-__pycache__/
-bandmanage_env/
+website/__pycache__/__init__.cpython-39.pyc
+website/__pycache__/models.cpython-39.pyc
+website/app/__pycache__/band.cpython-39.pyc
+website/app/__pycache__/members.cpython-39.pyc
+website/app/__pycache__/messages.cpython-39.pyc
+website/app/__pycache__/wallet.cpython-39.pyc
+website/database.db

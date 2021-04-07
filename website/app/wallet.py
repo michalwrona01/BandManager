@@ -28,9 +28,6 @@ def add_donate(user_id, band_id):
             band.budget = str(int(band.budget) + int(cost))
             db.session.commit()
 
-            user = User.query.filter_by(id=user_id).first()
-            user.wallet = str(int(user.wallet) - int(cost))
-            db.session.commit()
 
             flash("Donate added", category="success")
 
