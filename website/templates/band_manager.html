@@ -287,29 +287,94 @@
                 {% endfor %}
             </div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                <form method="POST" action="/messages/add">
-                    <label for="exampleFormControlTextarea1">Select a contact</label>
-                    <select class="custom-select" name="to_user_id"> 
-                        <option selected>Open this select menu</option>
-                        {% for user_msg in all_users %}
-                            {% if user_msg.id != user.id %}
-                            <option value="{{user_msg.id}}">{{user_msg.first_name}} {{user_msg.surname}}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                    <br></br>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Topic</span>
-                        </div>
-                        <input name="title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="received-tab" data-toggle="tab" href="#received" role="tab" aria-controls="received" aria-selected="true">Received</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="sent-tab" data-toggle="tab" href="#sent" role="tab" aria-controls="sent" aria-selected="false">Sent</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="create_a_new_message-tab" data-toggle="tab" href="#create_a_new_message" role="tab" aria-controls="create_a_new_message" aria-selected="false">New Message</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="received" role="tabpanel" aria-labelledby="received-tab">
+                        <br>
+                        <table class="table table-sm">
+                            <thead>
+                              <tr>
+                                <th scope="col">Topic</th>
+                                <th scope="col">From</th>
+                                <th scope="col">Message</th>
+                                <th scope="col">Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for title, from_user_first_name, from_user_surname, content, date in list_messages_received %}
+                                <tr>
+                                <td>{{title}}</td>
+                                <td>{{from_user_first_name}} {{from_user_surname}}</td>             
+                                <td>{{content}}</td>
+                                <td>{{date}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Content</label>
-                        <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+
+                    <div class="tab-pane fade" id="sent" role="tabpanel" aria-labelledby="sent-tab">
+                        <br>
+                        <table class="table table-sm">
+                            <thead>
+                              <tr>
+                                <th scope="col">Topic</th>
+                                <th scope="col">To</th>
+                                <th scope="col">Message</th>
+                                <th scope="col">Date</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for title, to_user_first_name, to_user_surname, content, date in list_messages_sent %}
+                                <tr>
+                                <td>{{title}}</td>
+                                <td>{{to_user_first_name}} {{to_user_surname}}</td>             
+                                <td>{{content}}</td>
+                                <td>{{date}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
-                </form>
+
+                    <div class="tab-pane fade" id="create_a_new_message" role="tabpanel" aria-labelledby="create_a_new_message-tab">
+                        <form method="POST" action="/messages/add">
+                            <br>
+                            <label for="exampleFormControlTextarea1">Select a contact</label>
+                            <select class="custom-select" name="to_user_id"> 
+                                <option selected>Open this select menu</option>
+                                {% for user_msg in all_users %}
+                                    {% if user_msg.id != user.id %}
+                                    <option value="{{user_msg.id}}">{{user_msg.first_name}} {{user_msg.surname}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <br></br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Topic</span>
+                                </div>
+                                <input name="title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Content</label>
+                                <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                        </form>
+                    </div>
+                  </div>
+                
             </div>
 
             <div class="tab-pane fade" id="v-pills-songbook" role="tabpanel" aria-labelledby="v-pills-songbook-tab">

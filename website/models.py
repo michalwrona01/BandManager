@@ -70,3 +70,4 @@ class Message(db.Model):
     to_user_id = db.Column(db.Integer)
     title = db.Column(db.String(255))
     content = db.Column(db.String(3000))
+    date_time_created = db.Column(db.DateTime(timezone=True), default=func.now())
