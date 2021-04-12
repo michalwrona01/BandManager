@@ -11,9 +11,9 @@
     <h2>You don't have any bands.</h2>
 {% else %}
 {% for band in bands %}
-<form method="POST" action="/manage-your-band/{{ band.id }}">
+<form method="POST" action="/manage-your-band">
     <div class="buttons" style="text-align: center;">
-            <button type="submit" class="btn btn-outline-danger btn-block" style="font-size: 36px;" name=band value={{ band.id }}>{{band.name}}</button>
+            <button type="submit" class="btn btn-outline-danger btn-block" style="font-size: 36px;" name="band" value={{band.id}} >{{band.name}}</button>
             <br>
     </div>
 </form>

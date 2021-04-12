@@ -4,9 +4,11 @@ from flask_login import login_required, current_user
 
 band = Blueprint('band', __name__)
 
-@band.route('/manage-your-band/<int:band_id>', methods=['GET', 'POST'])
+@band.route('/manage-your-band', methods=['GET', 'POST'])
 @login_required
-def band_manager(band_id):
+def band_manager():
+    band_id = request.form.get('band')
+    
     band = Band.query.filter_by(id=band_id).first()
     users_in_this_band = User.query.filter_by(band_id=band.id).all()
     users_without_band = User.query.filter_by(band_id=None).all()
