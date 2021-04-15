@@ -378,6 +378,75 @@
             </div>
 
             <div class="tab-pane fade" id="v-pills-songbook" role="tabpanel" aria-labelledby="v-pills-songbook-tab">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="pills-playlists-tab" data-toggle="pill" href="#pills-playlists" role="tab" aria-controls="pills-playlists" aria-selected="true">Playlists</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-addplaylists-tab" data-toggle="pill" href="#pills-addplaylists" role="tab" aria-controls="pills-addplaylists" aria-selected="false">Add Playlist</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-allsongs-tab" data-toggle="pill" href="#pills-allsongs" role="tab" aria-controls="pills-allsongs" aria-selected="false">All Songs</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-addsong-tab" data-toggle="pill" href="#pills-addsong" role="tab" aria-controls="pills-addsong" aria-selected="false">Add Song</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-playlists" role="tabpanel" aria-labelledby="pills-playlists-tab">
+                        {% for playlist in playlists %}
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                <h5 class="card-title">{{playlist.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{playlist.music_type}}</h6>
+                                <p class="card-text">Cos sie tutaj wymysli</p>
+                                <a href="#" class="card-link">Show more</a>
+                                <a href="#" class="card-link">Delete</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane fade" id="pills-addplaylists" role="tabpanel" aria-labelledby="pills-addplaylists-tab">
+
+                        <form method="POST" action="/songbook/playlist/add">
+                            <h5>Enter a playlist name</h5>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                                </div>
+                                <input name="name_playlist" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Music Type</span>
+                                </div>
+                                <input name="music_type" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+
+                            <br>
+
+                            <h5>Select which songs you want to include in the playlist</h5>
+
+                            {% for song in songs %}
+                            <div class="form-check">
+                                
+                                    <input name="is_checked" class="form-check-input" type="checkbox" value="{{song.id}}" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">{{song.name}} - {{song.author}}</label>
+                                
+                            </div>
+                            {% endfor %}
+
+                            <br></br>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Add Playlist</button>
+                        </form>
+                        
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-allsongs" role="tabpanel" aria-labelledby="pills-allsongs-tab">All Songs</div>
+                    <div class="tab-pane fade" id="pills-addsong" role="tabpanel" aria-labelledby="pills-addsong-tab">Add Song</div>
+                
             </div>
 
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">

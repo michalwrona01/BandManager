@@ -23,6 +23,7 @@ def create_app():
     from website.app.orders import orders
     from website.app.wallet import wallet
     from website.app.messages import messages
+    from website.app.songbook import songbook
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -31,6 +32,7 @@ def create_app():
     app.register_blueprint(orders, url_prefix='/')
     app.register_blueprint(wallet, url_prefix='/')
     app.register_blueprint(messages, url_prefix='/')
+    app.register_blueprint(songbook, url_prefix='/')
 
     from .models import User, Band
     create_database(app)
