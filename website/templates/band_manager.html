@@ -395,7 +395,7 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-playlists" role="tabpanel" aria-labelledby="pills-playlists-tab">
                         {% for playlist in playlists %}
-                            <div class="card" style="width: 18rem;">
+                            <div class="card" style="width: 18rem; margin-bottom: 10px;">
                                 <div class="card-body">
                                 <h5 class="card-title">{{playlist.name}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{playlist.music_type}}</h6>
@@ -444,8 +444,77 @@
                         
                     </div>
 
-                    <div class="tab-pane fade" id="pills-allsongs" role="tabpanel" aria-labelledby="pills-allsongs-tab">All Songs</div>
-                    <div class="tab-pane fade" id="pills-addsong" role="tabpanel" aria-labelledby="pills-addsong-tab">Add Song</div>
+                    <div class="tab-pane fade" id="pills-allsongs" role="tabpanel" aria-labelledby="pills-allsongs-tab">
+                        <div class="accordion" id="accordionExample">
+                            {% for song in songs %}
+                            <div class="card">
+                              <div class="card-header" id="heading{{song.id}}">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{song.id}}" aria-expanded="true" aria-controls="collapse{{song.id}}">
+                                    {{song.author}} - {{song.name}} | Music Type
+                                  </button>
+                                </h2>
+                              </div>
+                          
+                              <div id="collapse{{song.id}}" class="collapse" aria-labelledby="heading{{song.id}}" data-parent="#accordionExample">
+                                <div class="card-body">
+                                {{song.text|safe}}
+                                </div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    
+                    <div class="tab-pane fade" id="pills-addsong" role="tabpanel" aria-labelledby="pills-addsong-tab">
+                        <form method="POST" action="/songbook/song/add">
+                            <h3 align="left">Description</h3>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+                                </div>
+                                <input name="title"  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Author</span>
+                                </div>
+                                <input name="author"  type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <h3 align="left">Chords</h3>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">Chorus | Verse</span>
+                                </div>
+                                <input name="chords_chorus" type="text" aria-label="First name" class="form-control">
+                                <input name="chords_verse" type="text" aria-label="Last name" class="form-control">
+                            </div>
+                            <br>
+                            <h3 align="left">Text</h3>
+                            <h5>How to use?</h5>
+                            <br>
+                            <div class="example" style="width: 100%">
+                                <span align="left">
+                                    <p>b'Title' = <b>Title</b><br></p>
+                                    <p>u'Text' = <i>Text</i><br></p>
+                                    <p>h1'Description' <h1>Description</h1></p>
+                                    <p>h3'Description' <h3>Description</h3></p>
+                                    <p>h5'Description' <h5>Description</h5></p>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Textarea</label>
+                                <textarea name="song_text" class="form-control" id="exampleFormControlTextarea1" rows="40"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Add Song</button>
+                            <br></br>
+
+                        </form>
+                    </div>
+                    
                 
             </div>
 
