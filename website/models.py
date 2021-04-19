@@ -80,6 +80,7 @@ class Playlist(db.Model):
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'))
     music_type = db.Column(db.String(20))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    description = db.Column(db.String(300))
     songs = db.relationship('Song')
 
 class Song(db.Model):
@@ -92,6 +93,9 @@ class Song(db.Model):
 
 class Chord(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    chord = db.Column(db.String(4))
+    chord = db.Column(db.String(10))
+    chorus = db.Column(db.Boolean)
+    verse = db.Column(db.Boolean)
     song_id = db.Column(db.Integer, db.ForeignKey('song.id'), nullable=False)
+
     

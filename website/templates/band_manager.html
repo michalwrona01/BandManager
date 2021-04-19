@@ -399,7 +399,7 @@
                                 <div class="card-body">
                                 <h5 class="card-title">{{playlist.name}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{playlist.music_type}}</h6>
-                                <p class="card-text">Cos sie tutaj wymysli</p>
+                                <p class="card-text">{{playlist.description}}</p>
                                 <a href="#" class="card-link">Show more</a>
                                 <a href="#" class="card-link">Delete</a>
                                 </div>
@@ -423,6 +423,12 @@
                                 <span class="input-group-text" id="inputGroup-sizing-default">Music Type</span>
                                 </div>
                                 <input name="music_type" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                                </div>
+                                <input name="description_playlist" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                             </div>
 
                             <br>
@@ -458,6 +464,23 @@
                           
                               <div id="collapse{{song.id}}" class="collapse" aria-labelledby="heading{{song.id}}" data-parent="#accordionExample">
                                 <div class="card-body">
+                                    <h3>Ref:
+                                        {% for chord in chords %}
+                                            {% if chord.song_id == song.id and chord.chorus == 1%}
+                                            <span style="color: red; font-size: 48px;">{{chord.chord}}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                        Zwr:
+                                        {% for chord in chords %}
+                                            {% if chord.song_id == song.id and chord.verse == 1%}
+                                            <span style="color: red; font-size: 48px;">{{chord.chord}}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h3>
+                                    <form method="POST" action="/songbook/chord/transpose-up/">
+                                        <button name="song_id_chord" value="{{song.id}}" type=submit class="btn btn-primary">UP</button>
+                                    </form>
+                                    
                                 {{song.text|safe}}
                                 </div>
                               </div>

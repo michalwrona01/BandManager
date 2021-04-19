@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, request, url_for, render_template
-from website.models import User, Band, db, Orders, Bank, Message, Playlist, Song
+from website.models import User, Band, db, Orders, Bank, Message, Playlist, Song, Chord
 from flask_login import login_required, current_user
 
 band = Blueprint('band', __name__)
@@ -45,6 +45,8 @@ def band_manager():
 
     playlists = Playlist.query.filter_by(band_id=current_user.band_id).all()
     songs = Song.query.filter_by().all()
+
+    chords = Chord.query.filter_by().all()
     
 
 
@@ -56,7 +58,8 @@ def band_manager():
                             all_users=all_users, list_messages_received=list_messages_received,
                             list_messages_sent=list_messages_sent,
                             playlists=playlists,
-                            songs=songs
+                            songs=songs,
+                            chords=chords 
                             )
 
 @band.route('/manage-your-band/delete/band/<int:band_id>', methods=['POST'])
