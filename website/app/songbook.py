@@ -133,9 +133,6 @@ def add_song():
             db.session.add(new_chord_chours)
             db.session.commit()
 
-        print(chords_chorus.split(' '))
-
-
     return redirect(url_for('band.band_manager', band_id=current_user.band_id))
 
 @songbook.route('/songbook/chord/transpose-up/', methods=['GET', 'POST'])
