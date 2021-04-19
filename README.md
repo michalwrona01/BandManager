@@ -51,4 +51,9 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install BandMan
 ```bash
 pip install -r requirements.txt
 ```
-## 
+## Start application
+```bash
+python main.py
+```
+Enter your browser on this link: http://127.0.0.1:5000/
+
