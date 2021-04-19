@@ -8,6 +8,7 @@ This is my first application where I used the [Flask](https://flask.palletsproje
 * [Python 3.9.2](https://www.python.org/)
 * [Flask 1.1.2](https://flask.palletsprojects.com/en/1.1.x/)
 * [SQLAlchemy 1.4.5](https://www.sqlalchemy.org/)
+* For stylistic correctness I use [Bootstrap v4.6](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
 
 ## Features
 - Sing Up
