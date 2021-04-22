@@ -43,7 +43,7 @@ This is my first application where I used the [Flask](https://flask.palletsproje
 ![Alt Text](https://github.com/michalwrona01/BandManager/blob/main/presentation.gif?raw=true)
 
 ## My application demo
-https://bandmanager-wrona-michal.herokuapp.com/
+http://wronamichal.pythonanywhere.com/
 
 ## Installation
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install BandManger.
