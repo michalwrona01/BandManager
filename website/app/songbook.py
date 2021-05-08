@@ -2,6 +2,7 @@ from flask import Blueprint, redirect
 from flask import request
 from flask import url_for
 from flask.globals import session
+from flask.templating import render_template
 from flask_login import current_user, login_required
 from website.models import Playlist, Song, Chord
 from website.models import db
@@ -119,7 +120,7 @@ def add_song():
         chords_verse = request.form.get('chords_verse')
         song_text = from_string_to_html(request.form.get('song_text'))
 
-        new_song = Song(name=title, author=author, text=song_text)
+        new_song = Song(name=title, author=author, text=song_text, band_id_created=current_user.band_id)
         db.session.add(new_song)
         db.session.commit()
 
@@ -148,3 +149,13 @@ def chords_transpose_up():
         db.session.commit()
 
     return redirect(url_for('band.band_manager', band_id=current_user.band_id)) 
+
+@songbook.route('/playlist/<int:playlist_id>', methods=['GET'])
+@login_required
+def get_playlist(playlist_id):
+    if request.method == "GET":
+        playlist = Playlist.query.filter_by(id=playlist_id).first()
+        songs = Song.query.filter_by(playlist_id=playlist_id).all()
+        chords = Chord.query.filter_by().all()
+
+        return render_template('songs_in_playlist.html', user=current_user, playlist=playlist, songs=songs, chords=chords)

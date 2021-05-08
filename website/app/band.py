@@ -44,7 +44,7 @@ def band_manager():
     
 
     playlists = Playlist.query.filter_by(band_id=current_user.band_id).all()
-    songs = Song.query.filter_by().all()
+    songs = Song.query.filter_by(band_id_created=band_id).all()
 
     chords = Chord.query.filter_by().all()
     
@@ -59,8 +59,7 @@ def band_manager():
                             list_messages_sent=list_messages_sent,
                             playlists=playlists,
                             songs=songs,
-                            chords=chords 
-                            )
+                            chords=chords)
 
 @band.route('/manage-your-band/delete/band/<int:band_id>', methods=['POST'])
 @login_required

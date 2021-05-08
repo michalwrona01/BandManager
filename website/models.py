@@ -28,6 +28,7 @@ class Band(db.Model):
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     budget = db.Column(db.Integer, default=0)
     playlists = db.relationship('Playlist')
+    songs = db.relationship('Song')
 
 
 class Orders(db.Model):
@@ -85,11 +86,12 @@ class Playlist(db.Model):
 
 class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    name = db.Column(db.String(50))
-    author =db.Column(db.String(50))
+    name = db.Column(db.String(50), nullable=False)
+    author =db.Column(db.String(50), nullable=False)
     text = db.Column(db.String(3000))
     playlist_id = db.Column(db.Integer, db.ForeignKey('playlist.id'))
     chords = db.relationship('Chord')
+    band_id_created = db.Column(db.Integer, db.ForeignKey('band.id'))
 
 class Chord(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)

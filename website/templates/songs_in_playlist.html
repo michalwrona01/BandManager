@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br></br>
+
+<div class="accordion" id="accordionExample">
+  {% for song in songs %}
+  <div class="card">
+    <div class="card-header" id="heading{{song.id}}">
+      <h2 class="mb-0">
+        <button
+          class="btn btn-link btn-block text-left"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapse{{song.id}}"
+          aria-expanded="true"
+          aria-controls="collapse{{song.id}}"
+        >
+          {{song.author}} - {{song.name}} | Music Type
+        </button>
+      </h2>
+    </div>
+
+    <div
+      id="collapse{{song.id}}"
+      class="collapse"
+      aria-labelledby="heading{{song.id}}"
+      data-parent="#accordionExample"
+    >
+      <div class="card-body">
+        <h3>
+          Ref: {% for chord in chords %} {% if chord.song_id == song.id and
+          chord.chorus == 1%}
+          <span style="color: red; font-size: 48px">{{chord.chord}}</span>
+          {% endif %} {% endfor %} Zwr: {% for chord in chords %} {% if
+          chord.song_id == song.id and chord.verse == 1%}
+          <span style="color: red; font-size: 48px">{{chord.chord}}</span>
+          {% endif %} {% endfor %}
+        </h3>
+        <form method="POST" action="/songbook/chord/transpose-up/">
+          <button
+            name="song_id_chord"
+            value="{{song.id}}"
+            type="submit"
+            class="btn btn-primary"
+          >
+            UP
+          </button>
+        </form>
+
+        {{song.text|safe}}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
