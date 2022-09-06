@@ -1,4 +1,4 @@
-# [BandManager](http://wronamichal.pythonanywhere.com/)
+# [BandManager](http://wronamichal.pythonanywhere.com/) (In the process of migrating to new servers)
 
 ## Description
 It is a music band management application.
