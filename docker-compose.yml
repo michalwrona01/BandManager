@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  bandmanager_web:
+    build: .
+    command: gunicorn -b :8003 main:app
+    volumes:
+      - .:/code
+    expose:
+      - "8003"
+    networks:
+      - nginx_network
+networks:
+  nginx_network:
+    external: true
